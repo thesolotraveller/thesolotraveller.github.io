@@ -48,7 +48,8 @@ func (root *TreeNode) insertIntoBST(val int) {
 }
 
 func main() {
-	var tree *TreeNode = &TreeNode{5, nil, nil}
+	var tree *TreeNode = &TreeNode{val: 5}
+
 	tree.insertIntoBST(1)
 	tree.insertIntoBST(9)
 
