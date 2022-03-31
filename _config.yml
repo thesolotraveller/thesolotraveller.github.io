@@ -20,17 +20,18 @@
 
 # title: Mohit Gupta
 # email: 09mohit1994@gmail.com
-description: >- # this means to ignore newlines until "baseurl:"
-  I write tech blogs here
+# description: >- # this means to ignore newlines until "baseurl:"
+#   I post blogs here
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-github_username:  thesolotraveller
+# github_username:  thesolotraveller
 # twitter_username: mohitgupta_9894
 
 # Build settings
 theme: minima
 plugins:
   - jekyll-feed
+permalink: /:categories/:title/
 
 # Exclude from processing.
 # The following items will not be processed, by default.

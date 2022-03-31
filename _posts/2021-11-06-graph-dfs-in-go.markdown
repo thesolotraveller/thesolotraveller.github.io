@@ -2,8 +2,8 @@
 layout: post
 title:  "Implementing Graph Traversals (DFS and BFS) in Go"
 date:   2021-11-06 14:50:36 +0530
-categories: jekyll update
-permalink: /graph-dfs-bfs-go
+categories: Tech
+permalink: /tech/graph-dfs-bfs-go
 ---
 ```go
 package main
