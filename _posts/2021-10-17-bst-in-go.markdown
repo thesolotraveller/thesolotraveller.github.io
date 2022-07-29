@@ -1,10 +1,11 @@
 ---
 layout: post
-title:  "Implementing Binary Search Tree (BST) in Go"
-date:   2021-10-17 14:50:36 +0530
+title: "Implementing Binary Search Tree (BST) in Go"
+date: 2021-10-17 14:50:36 +0530
 categories: jekyll update
-permalink: /binary-search-tree-go
+permalink: /posts/tech/binary-search-tree-go
 ---
+
 ```go
 package main
 

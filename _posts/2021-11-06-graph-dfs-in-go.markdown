@@ -1,10 +1,11 @@
 ---
 layout: post
-title:  "Implementing Graph Traversals (DFS and BFS) in Go"
-date:   2021-11-06 14:50:36 +0530
+title: "Implementing Graph Traversals (DFS and BFS) in Go"
+date: 2021-11-06 14:50:36 +0530
 categories: jekyll update
-permalink: /graph-dfs-bfs-go
+permalink: /posts/tech/graph-dfs-bfs-go
 ---
+
 ```go
 package main
 
@@ -15,13 +16,13 @@ type GraphNode struct {
 }
 
 type Graph struct {
-	 nodes map[GraphNode]map[GraphNode]bool
-	 isDirected bool
+	nodes      map[GraphNode]map[GraphNode]bool
+	isDirected bool
 }
 
 func newGraph(isDirected bool) *Graph {
 	return &Graph{
-		nodes: make(map[GraphNode]map[GraphNode]bool),
+		nodes:      make(map[GraphNode]map[GraphNode]bool),
 		isDirected: isDirected,
 	}
 }
@@ -58,7 +59,7 @@ func (graph *Graph) addEdge(src int, dest int) {
 }
 
 func (graph *Graph) dfs(start int) {
-	fmt.Println("\nPrinting depth first traversal of the graph")
+	fmt.Println("Printing depth first traversal of the graph\n")
 	visited := make(map[GraphNode]bool)
 	graph.dfsHelper(start, visited)
 
@@ -83,7 +84,7 @@ func (graph *Graph) dfsHelper(start int, visited map[GraphNode]bool) {
 }
 
 func (graph *Graph) bfs(start int) {
-	fmt.Println("\nPrinting breadth first traversal of the graph")
+	fmt.Println("\nPrinting breadth first traversal of the graph\n")
 
 	visited := make(map[GraphNode]bool)
 	graph.bfsHelper(start, visited)
@@ -96,7 +97,7 @@ func (graph *Graph) bfs(start int) {
 }
 
 func (graph *Graph) bfsHelper(start int, visited map[GraphNode]bool) {
-	queue := []GraphNode{{start}}
+	queue := []GraphNode{GraphNode{start}}
 	visited[GraphNode{start}] = true
 
 	for len(queue) > 0 {
