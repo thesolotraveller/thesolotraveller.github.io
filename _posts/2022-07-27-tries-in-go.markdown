@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Trie insert and search in Golang ( Go )"
+title: "Implementing Trie data structure with inserting a word, searching a word and finding top K words matching a pattern in Go"
 date: 2022-07-26 09:00:00 +0530
 categories: [Tech, Golang, Go]
 permalink: /posts/tech/trie-in-go
@@ -9,7 +9,9 @@ permalink: /posts/tech/trie-in-go
 ```go
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type TrieNode struct {
 	isEnd    bool
@@ -24,6 +26,7 @@ func NewTrie() *TrieNode {
 }
 
 func (trie *TrieNode) AddWord(word string) {
+	fmt.Println("Inserting", word, "into the trie")
 	var curr *TrieNode
 	curr = trie
 	for i, char := range word {
@@ -59,22 +62,70 @@ func (trie *TrieNode) SearchWord(word string) bool {
 	return curr.isEnd
 }
 
+func (trie *TrieNode) GetTopKWordsWithPattern(pat string, k int) []string {
+	curr := trie
+	var word string
+	for _, ch := range pat {
+		key := string(ch)
+		if v, ok := curr.children[key]; !ok {
+			return []string{}
+		} else {
+			word += key
+			curr = v
+		}
+	}
+
+	var res []string
+	if curr.isEnd {
+		res = append(res, word)
+	}
+	curr.getWordsWithPatternHelper(&res, &word, k)
+	return res
+}
+
+func (trie *TrieNode) getWordsWithPatternHelper(res *[]string, word *string, maxCount int) {
+	if trie == nil {
+		return
+	}
+
+	for k, v := range trie.children {
+		*word += k
+		if v.isEnd {
+			if len(*res) == maxCount {
+				return
+			}
+
+			*res = append(*res, *word)
+		}
+		trie.children[k].getWordsWithPatternHelper(res, word, maxCount)
+		*word = (*word)[0 : len(*word) - 1]
+	}
+}
+
 func main() {
 	root := NewTrie()
 
-	words := []string{"banana", "bat", "cat", "car", "bake"}
+	// inserting words, in list below, into the trie
+	words := []string{"banana", "bat", "cat", "car", "bake", "batsman"}
 	for _, word := range words {
 		root.AddWord(word)
 	}
 
-	for _, word := range words {
+	// checking for all words, in the list below, if it exists in trie or not
+	wordsToCheckExistenceInTrieFor := []string{"banana", "bat", "batman", "car", "cake"}
+	for _, word := range wordsToCheckExistenceInTrieFor {
 		isFound := root.SearchWord(word)
 		if isFound {
-			fmt.Println(word, "found in trie")
+			fmt.Println("\nSearching '", word, "' in the trie. Status - Found")
 		} else {
-			fmt.Println(word, "not found in trie")
+			fmt.Println("\nSearching '", word, "' in the trie. Status - Not Found")
 		}
 	}
-}
 
+	// top K matching words with a pattern string
+	pattern := "ba"
+	maxWordToFetch := 10
+	matchingWords := root.GetTopKWordsWithPattern(pattern, maxWordToFetch)
+	fmt.Println("\nTop", maxWordToFetch ,"words matching with '", pattern, "' are", matchingWords)
+}
 ```
